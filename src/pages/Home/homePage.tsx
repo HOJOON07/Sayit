@@ -1,10 +1,18 @@
 import { FiImage } from "react-icons/fi";
+import { FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { AiFillHeart } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
 interface PostProps {
   id: string;
   email: string;
   content: string;
   createdAt: string;
   uid: string;
+  profileUrl?: string;
+  likes?: string[];
+  likeCount?: number;
+  comments?: any;
 }
 
 const posts: PostProps[] = [
@@ -54,6 +62,8 @@ const posts: PostProps[] = [
 
 export default function HomePage() {
   const handleFileUpload = () => {};
+
+  const handleDelete = () => {};
   return (
     <div className="home">
       <div className="home_title"></div>
@@ -80,8 +90,58 @@ export default function HomePage() {
             onChange={handleFileUpload}
             className="hidden"
           />
+          <input type="submit" value="Tweet" className="post-form_submit-btn" />
         </div>
       </form>
+      <div className="post">
+        {posts?.map((post) => (
+          <div className="post_box" key={post.id}>
+            <Link to={`/posts/${post.id}`}>
+              <div className="post_box-profile">
+                <div className="post_flex">
+                  {post?.profileUrl ? (
+                    <img
+                      src={post?.profileUrl}
+                      alt="profile"
+                      className="post_box-profile-img"
+                    />
+                  ) : (
+                    <FaUserCircle className="post_box-profile-icon" />
+                  )}
+                  <div className="post_email">{post?.email}</div>
+                  <div className="post_createdAt">{post?.createdAt}</div>
+                </div>
+                <div className="post_box-content">{post?.content}</div>
+              </div>
+            </Link>
+            <div className="post_box-footer">
+              {/* post.uid === user.uid 일때 */}
+              <>
+                <button
+                  type="button"
+                  className="post_delete"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              </>
+              <>
+                <button type="button" className="post_edit">
+                  <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
+                </button>
+              </>
+              <button type="button" className="post_likes">
+                <AiFillHeart></AiFillHeart>
+                {post?.likeCount || 0}
+              </button>
+              <button type="button" className="post_comments">
+                <FaRegComment></FaRegComment>
+                {post?.comments?.length || 0}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
