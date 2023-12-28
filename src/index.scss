@@ -7,8 +7,10 @@ $border: #708090;
 $primaryColor: #60a5fa;
 $grayText: #9ca3af;
 $activeBorder: #3b82f6;
-$danger: #dc2626;
 $gray: #6b7280;
+$grayDark: #4c515b;
+$danger: #dc2626;
+$dangerDark: #dc262683;
 
 //전체 레이아웃
 body {
@@ -30,6 +32,38 @@ body {
   border-left: 1px solid $border;
   border-right: 1px solid $border;
   min-height: 100vh;
+}
+
+// footer
+.footer {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: transparent;
+  color: $white;
+
+  &_grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background-color: transparent;
+
+    button {
+      border: none;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      background-color: transparent;
+      padding: 16px 0px;
+      backdrop-filter: blur(10px);
+    }
+  }
 }
 
 .button {
@@ -119,5 +153,100 @@ body {
     @extend .button;
     padding: 0.5rem 1rem;
     background-color: $primaryColor;
+  }
+}
+
+// Post 레이아웃
+.post {
+  padding-bottom: 40px;
+
+  &_flex {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &_email,
+  &_createdAt {
+    font-size: 12px;
+    color: $grayText;
+  }
+
+  &_box {
+    padding: 10px;
+    border-bottom: 1px solid $border;
+
+    a {
+      text-decoration: none;
+    }
+
+    &_profile {
+      text-decoration: none;
+      padding: 0px 10px;
+
+      &-img,
+      &-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    &-content {
+      display: block;
+      font-weight: 500;
+      padding: 16px 4px;
+    }
+
+    &-footer {
+      padding: 0 16px;
+      margin-top: 10px;
+      font-weight: 14px;
+      display: flex;
+      gap: 8px;
+      flex-direction: row-reverse;
+
+      button {
+        @extend .button;
+
+        &.post_delete {
+          background-color: $danger;
+
+          &:hover,
+          &:focus {
+            background-color: $dangerDark;
+          }
+        }
+
+        &.post_edit {
+          background-color: $gray;
+
+          a {
+            // background-color: $gray;
+            background-color: transparent;
+            &:hover,
+            &:focus {
+              background-color: $grayDark;
+            }
+          }
+
+          &:hover,
+          &:focus {
+            background-color: $grayDark;
+          }
+        }
+
+        &.post_likes,
+        &.post_comments {
+          @extend .post_flex;
+
+          &:hover,
+          &:focus {
+            color: $gray;
+          }
+        }
+      }
+    }
   }
 }
