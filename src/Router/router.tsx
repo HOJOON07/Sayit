@@ -11,21 +11,36 @@ import NotificationsPage from "../pages/Notifications/NotificationsPage";
 import LoginPage from "../pages/Users/LoginPage";
 import SignupPage from "../pages/Users/SignupPage";
 
-const Router = () => {
+interface RouterProps {
+  isAuthenticated: boolean;
+}
+
+const Router = ({ isAuthenticated }: RouterProps) => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/posts" element={<PostListPage />} />
-      <Route path="/posts/:id" element={<PostDetail />} />
-      <Route path="/posts/new" element={<PostNew />} />
-      <Route path="/posts/edit/:id" element={<PostEdit />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/profile/edit/:id" element={<ProfileEdit />} />
-      <Route path="/search" element={<SearchPage />} />
-      <Route path="/notifications" element={<NotificationsPage />} />
-      <Route path="/users/login" element={<LoginPage />} />
-      <Route path="/users/signup" element={<SignupPage />} />
-      <Route path="*" element={<Navigate replace to={"/"}></Navigate>} />
+      {isAuthenticated ? (
+        <>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/posts" element={<PostListPage />} />
+          <Route path="/posts/:id" element={<PostDetail />} />
+          <Route path="/posts/new" element={<PostNew />} />
+          <Route path="/posts/edit/:id" element={<PostEdit />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/edit/:id" element={<ProfileEdit />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="*" element={<Navigate replace to={"/"}></Navigate>} />
+        </>
+      ) : (
+        <>
+          <Route path="/users/login" element={<LoginPage />} />
+          <Route path="/users/signup" element={<SignupPage />} />
+          <Route
+            path="*"
+            element={<Navigate replace to={"/users/login"}></Navigate>}
+          />
+        </>
+      )}
     </Routes>
   );
 };

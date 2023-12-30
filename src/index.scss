@@ -1,18 +1,6 @@
-$font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-$background: #1e293b;
-$activaBackground: #3c495f5f;
-$white: #ffffff;
-$border: #708090;
-$primaryColor: #60a5fa;
-$grayText: #9ca3af;
-$activeBorder: #3b82f6;
-$gray: #6b7280;
-$grayDark: #4c515b;
-$danger: #dc2626;
-$dangerDark: #dc262683;
+@import "./utils.scss";
 
-//전체 레이아웃
+// 전체 레이아웃
 body {
   margin: 0;
   font-family: $font;
@@ -26,12 +14,40 @@ body {
 }
 
 .layout {
-  position: relative;
   max-width: 600px;
   margin: 0 auto;
+  position: relative;
   border-left: 1px solid $border;
   border-right: 1px solid $border;
   min-height: 100vh;
+}
+
+.button {
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.25rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.transparent {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.sticky {
+  width: 100%;
+  position: sticky;
+  max-width: 600px;
+  margin: 0 auto;
+  top: 0;
 }
 
 // footer
@@ -52,6 +68,10 @@ body {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     background-color: transparent;
 
+    &-text {
+      background-color: transparent;
+    }
+
     button {
       border: none;
       display: flex;
@@ -62,35 +82,104 @@ body {
       background-color: transparent;
       padding: 16px 0px;
       backdrop-filter: blur(10px);
+
+      svg {
+        backdrop-filter: blur(10px);
+        background-color: transparent;
+      }
     }
   }
 }
 
-.button {
-  padding: 0.2rem 0.8rem;
-  border-radius: 999px;
-  font-size: 12px;
-  line-height: 1.25rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+
+  .layout {
+    border: none;
+  }
 }
 
+@include mobile {
+  .footer {
+    &_grid {
+      &-text {
+        display: none;
+      }
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include tablet {
+  .footer {
+    &_grid {
+      &-text {
+        display: none;
+      }
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+// home 레이아웃
 .home {
+  &_search-div {
+    display: flex;
+    justify-content: center;
+  }
+
+  &_search {
+    @extend .post-form_input;
+    background-color: $backgroundLight;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 90% !important;
+    font-size: 15px;
+    font-weight: 600;
+
+    &:focus {
+      border: 1px solid $primaryColor;
+      background-color: $activeBg;
+    }
+  }
+
+  &_top {
+    @extend .transparent;
+    @extend .sticky;
+  }
+
   &_title {
+    background-color: transparent;
+    width: 90%;
     padding: 16px;
     font-weight: 700;
     font-size: 20px;
   }
 
   &_tabs {
+    background-color: transparent;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   &_tab {
+    background-color: transparent;
     text-align: center;
     font-weight: 500;
     padding: 16px;
@@ -103,15 +192,94 @@ body {
 
     &:hover,
     &:focus {
-      background-color: $activaBackground;
+      background-color: $activeBg;
     }
   }
 }
 
 .post-form {
+  &_profile {
+    padding: 16px;
+
+    .post-form_input {
+      border-bottom: 1px solid $gray;
+      padding: 8px 2px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+
+      &:active,
+      &:focus {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
+  &_image-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &_attachment {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+  }
+
+  &_clear-btn {
+    @extend .button;
+    padding: 0.2rem 0.8rem;
+    background-color: $danger;
+
+    &:hover,
+    &:focus {
+      background-color: $dangerDark;
+    }
+  }
+
+  &_input {
+    font-family: $font;
+    padding: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    margin-top: 8px;
+    width: calc(100% - 32px);
+  }
+
+  &_hashtags {
+    padding: 16px;
+    border-bottom: 1px solid $border;
+
+    &-outputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 1px;
+      align-items: center;
+    }
+
+    &-tag {
+      font-size: 14px;
+      border: 1px solid $primaryColor;
+      color: $primaryColor;
+      border-radius: 10px;
+      padding: 2px 8px;
+      margin-right: 6px;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: $activeBorder;
+        border: 1px solid $activeBorder;
+      }
+    }
+  }
+
   &_textarea {
     font-family: $font;
     min-height: 120px;
+    display: block;
     width: calc(100% - 32px);
     padding: 16px;
     border: none;
@@ -132,23 +300,21 @@ body {
     padding: 0.75rem 1rem;
     justify-content: space-between;
     border-bottom: 1px solid $border;
+    align-items: center;
 
     .post-form_file {
       display: flex;
       padding: 0 1rem;
       flex-direction: column;
-      cursor: pointer;
       justify-content: center;
-
-      .post-form_file-icon {
-        color: $activeBorder;
-      }
+      cursor: pointer;
     }
 
     .hidden {
       display: none;
     }
   }
+
   &_submit-btn {
     @extend .button;
     padding: 0.5rem 1rem;
@@ -158,12 +324,70 @@ body {
 
 // Post 레이아웃
 .post {
+  &_image-div {
+    padding: 16px;
+  }
+
+  &_header {
+    button {
+      border: none;
+      padding: 16px;
+    }
+
+    &-btn {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &_no-posts {
+    padding: 16px;
+
+    .post_text {
+      font-size: 14px;
+      border: 1px solid $gray;
+      padding: 16px;
+      border-radius: 4px;
+    }
+  }
+
   padding-bottom: 40px;
 
   &_flex {
     display: flex;
     gap: 4px;
     align-items: center;
+
+    &-between {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &_follow-btn {
+    @extend .button;
+    background-color: $white;
+    color: $activeBorder;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+      color: $white;
+    }
+  }
+
+  &_following-btn {
+    @extend .button;
+    background-color: $activeBorder;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $white;
+      color: $activeBorder;
+    }
   }
 
   &_email,
@@ -173,14 +397,14 @@ body {
   }
 
   &_box {
-    padding: 10px;
+    padding: 10px 0px;
     border-bottom: 1px solid $border;
 
     a {
       text-decoration: none;
     }
 
-    &_profile {
+    &-profile {
       text-decoration: none;
       padding: 0px 10px;
 
@@ -202,7 +426,7 @@ body {
     &-footer {
       padding: 0 16px;
       margin-top: 10px;
-      font-weight: 14px;
+      font-size: 14px;
       display: flex;
       gap: 8px;
       flex-direction: row-reverse;
@@ -223,12 +447,7 @@ body {
           background-color: $gray;
 
           a {
-            // background-color: $gray;
             background-color: transparent;
-            &:hover,
-            &:focus {
-              background-color: $grayDark;
-            }
           }
 
           &:hover,
@@ -248,5 +467,160 @@ body {
         }
       }
     }
+  }
+}
+
+// form 레이아웃
+.form {
+  margin: 0 auto;
+  max-width: 680px;
+  padding: 20px;
+
+  input {
+    height: 20px;
+    padding: 10px;
+    border-radius: 0.3rem;
+    border: 1px solid lightgray;
+    width: 96%;
+    max-width: 680px;
+  }
+
+  &_block {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  &_block-lg {
+    margin-top: 28px;
+    width: 100%;
+  }
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  &_btn-submit {
+    @extend .button;
+    width: 100%;
+    height: 48px;
+    font-weight: 600;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 auto;
+    color: white;
+    background-color: $primaryColor;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+    }
+  }
+
+  &_title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    padding-bottom: 20px;
+  }
+
+  &_link {
+    margin-left: 10px;
+    text-decoration: none;
+    color: $grayText;
+
+    &:hover,
+    &:focus {
+      color: $gray;
+    }
+  }
+
+  &_error {
+    color: red;
+  }
+
+  &_btn-google {
+    @extend .form_btn-submit;
+    background-color: $white;
+    color: $activeBorder;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+      color: $white;
+    }
+  }
+
+  &_btn-github {
+    @extend .form_btn-submit;
+    background-color: black;
+    color: white;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBg;
+      color: $white;
+    }
+  }
+}
+
+// 프로필 레이아웃
+.profile {
+  display: flex;
+  padding: 0 1rem;
+  margin-top: 2.5rem;
+  justify-content: space-between;
+  align-items: center;
+
+  &_flex {
+    display: flex;
+    gap: 8px;
+  }
+
+  &_image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  &_btn {
+    @extend .button;
+    background-color: $primaryColor;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+    }
+
+    &-language {
+      @extend .button;
+      background-color: $gray;
+
+      &:hover,
+      &:focus {
+        background-color: $grayDark;
+      }
+    }
+  }
+
+  &_text {
+    padding: 0 1rem;
+    margin-top: 20px;
+  }
+
+  &_name {
+    font-size: 16px;
+    color: $white;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  &_email {
+    font-size: 14px;
+    color: $grayText;
+    margin-bottom: 4px;
   }
 }
