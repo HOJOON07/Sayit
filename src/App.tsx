@@ -1,11 +1,11 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Router from "./Router/router";
-import Layout from "./conponents/Layout";
+import Layout from "./components/Layout";
 import { app } from "./firebaseApp";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Loader from "./conponents/loader/Loader";
+import Loader from "./components/loader/Loader";
 
 function App() {
   const auth = getAuth(app);
