@@ -62,11 +62,14 @@ export default function HomePage() {
   const handleDelete = () => {};
   return (
     <div className="home">
-      <div className="home_title"></div>
-      <div className="home_tabs">
-        <div className="home_tab home_tab-active">For You</div>
-        <div className="home_tab">Following</div>
+      <div className="home_top">
+        <div className="home_title"></div>
+        <div className="home_tabs">
+          <div className="home_tab home_tab-active">For You</div>
+          <div className="home_tab">Following</div>
+        </div>
       </div>
+      ㅜ
       <PostForm />
       <div className="post">
         {posts?.map((post) => (
