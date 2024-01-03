@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseApp";
 import { IoIosArrowBack } from "react-icons/io";
+import PostHeader from "./PostHeader";
 
 const PostDetail = () => {
   const params = useParams();
@@ -27,11 +28,7 @@ const PostDetail = () => {
 
   return (
     <div className="post">
-      <div className="post_header">
-        <button type="button" onClick={() => navigate(-1)}>
-          <IoIosArrowBack />
-        </button>
-      </div>
+      <PostHeader />
       {post ? <PostBox post={post}></PostBox> : <Loader />}
     </div>
   );

@@ -21,6 +21,8 @@ export interface PostProps {
   likes?: string[];
   likeCount?: number;
   comments?: any;
+  hashTags?: string[];
+  imageUrl?: string;
 }
 
 // const posts: PostProps[] = [
@@ -88,7 +90,7 @@ export default function HomePage() {
       });
     }
     console.log(user);
-  }, []);
+  }, [user]);
 
   const handleDelete = () => {};
   return (
