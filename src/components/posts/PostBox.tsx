@@ -14,6 +14,7 @@ import {
 import { db, storage } from "../../firebaseApp";
 import { toast } from "react-toastify";
 import { deleteObject, ref } from "firebase/storage";
+import FollowingBox from "../following/FollowingBox";
 
 interface PostBoxProps {
   post: PostProps;
@@ -59,21 +60,26 @@ const PostBox = ({ post }: PostBoxProps) => {
 
   return (
     <div className="post_box" key={post.id}>
-      <Link to={`/posts/${post?.id}`}>
-        <div className="post_box-profile">
-          <div className="post_flex">
-            {post?.profileUrl ? (
-              <img
-                src={post?.profileUrl}
-                alt="profile"
-                className="post_box-profile-img"
-              />
-            ) : (
-              <FaUserCircle className="post_box-profile-icon" />
-            )}
-            <div className="post_email">{post?.email}</div>
-            <div className="post_createdAt">{post?.createdAt}</div>
+      <div className="post_box-profile">
+        <div className="post_flex">
+          {post?.profileUrl ? (
+            <img
+              src={post?.profileUrl}
+              alt="profile"
+              className="post_box-profile-img"
+            />
+          ) : (
+            <FaUserCircle className="post_box-profile-icon" />
+          )}
+          <div className="post_flex-between">
+            <div className="post_flex">
+              <div className="post_email">{post?.email}</div>
+              <div className="post_createdAt">{post?.createdAt}</div>
+            </div>
+            <FollowingBox post={post} />
           </div>
+        </div>
+        <Link to={`/posts/${post?.id}`}>
           <div className="post_box-content">{post?.content}</div>
           {post?.imageUrl && (
             <div className="post_image-div">
@@ -93,8 +99,8 @@ const PostBox = ({ post }: PostBoxProps) => {
               </span>
             ))}
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="post_box-footer">
         {/* post.uid === user.uid 일때 */}
         {user?.uid === post.uid && (

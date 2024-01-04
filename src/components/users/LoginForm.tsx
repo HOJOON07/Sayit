@@ -118,7 +118,7 @@ const LoginForm = () => {
       <div className="form_block">
         계정이 없으신가요?
         <Link to="/users/signup" className="form_link">
-          로그인하기
+          회원가입 하기
         </Link>
       </div>
       <div className="form_block-lg">
