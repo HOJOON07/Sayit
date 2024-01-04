@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import AuthContext from "../../context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import useTranslation from "../../hooks/useTranslation";
 
 const PostForm = () => {
   const { user } = useContext(AuthContext);
@@ -15,6 +16,8 @@ const PostForm = () => {
   const [hashTag, setHashTag] = useState<string>("");
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [imageFile, setImageFile] = useState<string | null>();
+
+  const t = useTranslation();
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;
@@ -118,7 +121,7 @@ const PostForm = () => {
         id="content"
         name="content"
         required
-        placeholder="What is happenig?"
+        placeholder={t("POST_PLACEHOLDER")}
         value={content}
         onChange={onChange}
       ></textarea>
@@ -140,7 +143,7 @@ const PostForm = () => {
           className="post-form_input"
           name="hashtag"
           id="hashtag"
-          placeholder="해시태그 + 스페이스바 입력"
+          placeholder={t("POST_HASHTAG")}
           onChange={onChangeHashTag}
           onKeyUp={handleKeyUp}
           value={hashTag}
@@ -167,7 +170,7 @@ const PostForm = () => {
                 type="button"
                 onClick={handleDeleteImage}
               >
-                clear
+                {t("BUTTON_DELETE")}
               </button>
             </div>
           )}
