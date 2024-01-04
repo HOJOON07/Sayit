@@ -90,7 +90,7 @@ body {
     }
   }
 }
-
+// 화면이 작아지면 글씨는 안보이도록
 @include xsMobile {
   .footer {
     display: none;
@@ -107,6 +107,7 @@ body {
       &-text {
         display: none;
       }
+      //버튼 사이즈도 조절
       button {
         font-size: 20px;
       }

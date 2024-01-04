@@ -12,6 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebaseApp";
+import useTranslation from "../../hooks/useTranslation";
 
 export interface PostProps {
   id: string;
@@ -83,6 +84,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<tabType>("all");
   const [followingPost, setFollowingPost] = useState<PostProps[]>([]);
   const [followingIdList, setFollowingIdList] = useState<string[]>([""]);
+  const t = useTranslation();
 
   const { user } = useContext(AuthContext);
 
@@ -139,7 +141,7 @@ export default function HomePage() {
   return (
     <div className="home">
       <div className="home _top">
-        <div className="home_title"></div>
+        <div className="home_title">{t("MENU_HOME")}</div>
         <div className="home_tabs">
           <div
             className={`home_tab ${activeTab === "all" && "home_tab-active"}`}
@@ -147,7 +149,7 @@ export default function HomePage() {
               setActiveTab("all");
             }}
           >
-            All
+            {t("TAB_ALL")}
           </div>
           <div
             className={`home_tab ${
@@ -157,7 +159,7 @@ export default function HomePage() {
               setActiveTab("following");
             }}
           >
-            Following
+            {t("TAB_FOLLOWING")}
           </div>
         </div>
       </div>
@@ -169,7 +171,7 @@ export default function HomePage() {
             posts?.map((post) => <PostBox key={post.id} post={post} />)
           ) : (
             <div className="post_no-posts">
-              <div className="post_text">게시글이 없습니다.</div>
+              <div className="post_text">{t("NO_POSTS")}</div>
             </div>
           )}
         </div>
@@ -180,7 +182,7 @@ export default function HomePage() {
             followingPost?.map((post) => <PostBox key={post.id} post={post} />)
           ) : (
             <div className="post_no-posts">
-              <div className="post_text">게시글이 없습니다.</div>
+              <div className="post_text">{t("NO_POSTS")}</div>
             </div>
           )}
         </div>
