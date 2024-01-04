@@ -70,7 +70,7 @@ const ProfilePage = () => {
           />
           <button
             type="button"
-            className="profile_button"
+            className="profile_btn"
             onClick={() => navigate("/profile/edit")}
           >
             프로필 수정
