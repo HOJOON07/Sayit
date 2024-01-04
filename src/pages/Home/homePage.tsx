@@ -94,7 +94,7 @@ export default function HomePage() {
     if (user?.uid) {
       const ref = doc(db, "following", user?.uid);
       onSnapshot(ref, (doc) => {
-        setFollowingIdList([""]);
+        setFollowingIdList([" "]);
         doc
           ?.data()
           ?.users?.map((user: UserProps) =>

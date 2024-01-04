@@ -8,6 +8,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { app } from "../firebaseApp";
 import { toast } from "react-toastify";
 import { AiOutlineSearch } from "react-icons/ai";
+import { IoMdNotifications } from "react-icons/io";
 
 const MenuList = () => {
   const navigate = useNavigate();
@@ -34,6 +35,10 @@ const MenuList = () => {
         <button type="button" onClick={() => navigate("/search ")}>
           <AiOutlineSearch />
           Search
+        </button>
+        <button type="button" onClick={() => navigate("/notifications ")}>
+          <IoMdNotifications />
+          Notifications
         </button>
         {user === null ? (
           <button type="button" onClick={() => navigate("/")}>
