@@ -10,7 +10,6 @@ import { RecoilRoot } from "recoil";
 
 function App() {
   const auth = getAuth(app);
-  console.log(auth);
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     !!auth?.currentUser

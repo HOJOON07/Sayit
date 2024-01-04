@@ -90,8 +90,6 @@ export default function HomePage() {
 
   // 실시간으로 팔로잉하고 있는 유저의 아이디 가져오기
 
-  console.log(followingIdList);
-
   const getFollowingUserList = useCallback(async () => {
     if (user?.uid) {
       const ref = doc(db, "following", user?.uid);

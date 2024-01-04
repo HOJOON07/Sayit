@@ -42,8 +42,6 @@ const PostEditForm = () => {
       const result = url.result;
       setImageFile(result);
     };
-
-    console.log(files);
   };
   const navigate = useNavigate();
 
@@ -118,13 +116,11 @@ const PostEditForm = () => {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement;
     if (e.key === " " && value.trim() !== "") {
-      console.log("!!", value);
       // 태그 생성
       // 같은 태그가 있다면 에러 발생
       if (tags?.includes(value.trim())) {
         toast.error("같은 태그가 있습니다.");
       } else {
-        console.log("여기");
         setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
         setHashTag("");
       }
@@ -132,7 +128,6 @@ const PostEditForm = () => {
   };
 
   const onChangeHashTag = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setHashTag(e.target.value?.trim());
   };
 

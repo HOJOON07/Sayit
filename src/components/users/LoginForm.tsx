@@ -77,7 +77,6 @@ const LoginForm = () => {
       provider as GithubAuthProvider | GoogleAuthProvider
     )
       .then((res) => {
-        console.log(res);
         toast.success("로그인 되었습니다.");
       })
       .catch((err: Error) => {

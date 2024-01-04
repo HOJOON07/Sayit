@@ -40,7 +40,6 @@ const NotificationsPage = () => {
       });
     }
   }, [user]);
-  console.log(notifications);
 
   return (
     <div className="home">
