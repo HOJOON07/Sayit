@@ -17,7 +17,6 @@ const PROFILE_DEFAULT_URL = "/logo512.png";
 type TabType = "my" | "like";
 
 const ProfilePage = () => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
   const [myPosts, setMyPosts] = useState<PostProps[]>([]);
   const [likePosts, setLikePosts] = useState<PostProps[]>([]);
   const [activeTab, setActiveTab] = useState<TabType>("my");
